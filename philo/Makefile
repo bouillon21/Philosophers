@@ -2,6 +2,7 @@ NAME		=	philo
 
 SRCS		=	parse.c \
 				philo.c \
+				utils.c \
 				
 
 OBJS		= ${SRCS:.c=.o}
@@ -9,7 +10,7 @@ OBJS		= ${SRCS:.c=.o}
 CC			= gcc
 RM			= rm -rf
 
-CFLAGS		= -Wall -Wextra -Werror
+# CFLAGS		= -Wall -Wextra -Werror
 
 .c.o:		= ${CC} -g ${CFLAGS} -c $< -o ${<:.c=.o}
 
