@@ -1,8 +1,9 @@
 NAME		=	philo
 
-SRCS		=	parse.c \
+SRCS		=	parse_init.c \
 				philo.c \
 				utils.c \
+				groundhog_day.c \
 				
 
 OBJS		= ${SRCS:.c=.o}

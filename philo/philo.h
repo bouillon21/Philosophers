@@ -51,6 +51,13 @@ void	my_usleep(long time);
 long	get_time(void);
 void	ft_putnbr(long int n);
 void	init_philo(t_all *all);
+int	init(int argc, char **argv, t_all *all);
+
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
+void	get_fork(t_philo *philo);
+void	throw_fork(t_philo *philo);
 
 
 #endif
