@@ -25,12 +25,16 @@ int	check_args(int argc, char **argv, t_all *all)
 void init_philo(t_all *all)
 {
 	int	i;
+	pthread_mutex_t	*all_fork;
 
 	i = -1;
 	all->philo = malloc(sizeof(t_philo) * all->axioms.number_of_philosophers + 1);
+	all_fork = malloc(sizeof(mutex_t) * all->axioms.number_of_philosophers + 1);
+	while (++i < all->axioms.number_of_philosophers)
+		pthread_mutex_init(&all_fork[i], NULL);
+	i = -1;
 	while(++i < all->axioms.number_of_philosophers)
 	{
-		pthread_mutex_init(&all->philo[i].left, NULL);
 		all->philo[i].philo_num = i;
 		all->philo[i].time_to_eat = all->axioms.time_to_eat;
 		all->philo[i].time_to_sleep = all->axioms.time_to_sleep;
@@ -38,11 +42,9 @@ void init_philo(t_all *all)
 		all->philo[i].number_meals = all->axioms.number_meals;
 		all->philo[i].start_time = all->start_time;
 		all->philo[i].start_life = all->start_time;
+		all->philo[i].left = &all_fork[i];
+		all->philo[i].right = &all_fork[(i + 1) % all->axioms.number_of_philosophers];
 	}
-	all->philo[i - 1].right = &all->philo[0].left;
-	i = -1;
-	while (++i < all->axioms.number_of_philosophers - 1)
-		all->philo[i].right = &all->philo[i].left;
 }
 
 int init(int argc, char **argv, t_all *all)
