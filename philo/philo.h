@@ -10,8 +10,11 @@
 # define RESET			"\033[0m"
 # define YELLOW			"\033[1;33m"
 # define BLUE			"\x1b[34m"
+# define GREEN			"\x1b[32m"
+# define WHITE			"\033[1;39m"
 
-pthread_mutex_t	g_chat;
+typedef pthread_mutex_t mutex_t;
+mutex_t	g_chat;
 
 typedef struct s_axioms
 {
@@ -29,10 +32,10 @@ typedef struct s_philo
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			number_meals;
-	long int			start_time;
-	long int			start_life;
+	long			start_time;
+	long			start_life;
 
-	pthread_mutex_t	left;
+	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 }				t_philo;
 
@@ -56,8 +59,8 @@ int	init(int argc, char **argv, t_all *all);
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
-void	get_fork(t_philo *philo);
-void	throw_fork(t_philo *philo);
+void	get_fork(t_philo *philo, mutex_t *first, mutex_t *second);
+void	throw_fork(t_philo *philo, mutex_t *first, mutex_t *second);
 
 
 #endif
