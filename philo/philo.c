@@ -1,4 +1,4 @@
- #include "philo.h"
+#include "philo.h"
 
 static	int	check_death(t_all *all, int *did_everyone_eat, int i)
 {
@@ -14,7 +14,7 @@ static	int	check_death(t_all *all, int *did_everyone_eat, int i)
 	return (0);
 }
 
-void *surveillance(void *all)
+void	*surveillance(void *all)
 {
 	int		i;
 	int		did_everyone_eat;
@@ -42,19 +42,18 @@ void *surveillance(void *all)
 void	*philo(void *curent_philo)
 {
 	t_philo	*philo;
-	mutex_t	*first;
-	mutex_t	*second;
+	t_mutex	*first;
+	t_mutex	*second;
 
 	philo = (t_philo *)curent_philo;
 	first = philo->left;
 	second = philo->right;
-	philo->start_life = get_time();
 	if (philo->philo_num % 2 == 0)
 	{
 		first = philo->right;
 		second = philo->left;
 	}
-	while(1)
+	while (1)
 	{
 		get_fork(philo, first, second);
 		philo_eat(philo);
@@ -69,14 +68,14 @@ void	*philo(void *curent_philo)
 	return (NULL);
 }
 
-void start_live_philo(t_all *all)
+void	start_live_philo(t_all *all)
 {
-	int	i;
+	int			i;
 	pthread_t	*thread;
 	pthread_t	observer;
 
 	i = -1;
-	thread = malloc(sizeof(pthread_t)* all->axioms.number_of_philosophers + 1);
+	thread = malloc(sizeof(pthread_t) * all->axioms.number_of_philosophers + 1);
 	pthread_create(&observer, NULL, surveillance, (void *)all);
 	while (++i < all->axioms.number_of_philosophers)
 		pthread_create(&thread[i], NULL, philo, (void *)&all->philo[i]);
@@ -90,6 +89,5 @@ int	main(int argc, char **argv)
 
 	if (init(argc, argv, &all) != -1)
 		start_live_philo(&all);
-	return(0);
-
+	return (0);
 }

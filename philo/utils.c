@@ -2,13 +2,13 @@
 
 int	print_error(char *str)
 {
-	printf("%s%s\n",RED, str);
-	return(-1);
+	printf("%s%s\n", RED, str);
+	return (-1);
 }
 
 void	ft_putnbr(long int n)
 {
-	char c;
+	char	c;
 
 	if (n < 0)
 	{
@@ -41,7 +41,7 @@ long	get_time(void)
 
 long int	ft_atoi(const char *str)
 {
-	int	i;
+	int			i;
 	long int	rez;
 
 	i = 0;
