@@ -13,8 +13,6 @@ int	check_args(int argc, char **argv, t_all *all)
 	all->axioms.number_meals = -1;
 	if (argc == 6)
 		all->axioms.number_meals = ft_atoi(argv[5]);
-	else
-		all->axioms.number_meals = -1;
 	if (all->axioms.time_to_die < 1 || all->axioms.number_of_philosophers < 1
 		|| all->axioms.time_to_eat < 1 || all->axioms.time_to_sleep < 1
 		|| all->axioms.number_meals == 0)

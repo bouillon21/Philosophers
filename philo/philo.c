@@ -5,7 +5,7 @@ static	int	check_death(t_all *all, int *did_everyone_eat, int i)
 	if (all->axioms.time_to_die < get_time() - all->philo[i].start_life)
 	{
 		pthread_mutex_lock(&g_chat);
-		printf("\x1b[31m%zu %d died\n",
+		printf("%s⏰%zu\t|%d|\t💀died💀\n", RED,
 			get_time() - all->philo[i].start_time, i + 1);
 		return (1);
 	}
@@ -59,10 +59,8 @@ void	*philo(void *curent_philo)
 		philo_eat(philo);
 		throw_fork(philo, first, second);
 		if (philo->number_meals != -1)
-		{
 			if (philo->number_meals != 0)
 				--philo->number_meals;
-		}
 		philo_sleep(philo);
 	}
 	return (NULL);
@@ -81,6 +79,7 @@ void	start_live_philo(t_all *all)
 		pthread_create(&thread[i], NULL, philo, (void *)&all->philo[i]);
 	pthread_join(observer, NULL);
 	pthread_mutex_destroy(&g_chat);
+	free(thread);
 }
 
 int	main(int argc, char **argv)
@@ -89,5 +88,6 @@ int	main(int argc, char **argv)
 
 	if (init(argc, argv, &all) != -1)
 		start_live_philo(&all);
+	free(all.philo);
 	return (0);
 }
